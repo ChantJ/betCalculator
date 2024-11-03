@@ -12,7 +12,7 @@ const Combinations = ({ combinations }) => {
         setTest(localStorageWinning)
     }, [data])
 
-    const displayOdds = (events) => {
+    const displayFields = (events, index) => {
         let localStorageWinning = parseFloat(localStorage.getItem('maxWin'))
         const lostEvent = events.some(item => item.result === 'l');
         const totOdds = lostEvent ? 0 : events
@@ -25,7 +25,7 @@ const Combinations = ({ combinations }) => {
             <React.Fragment>
                 <td>{displayNumber(totOdds)}</td>
                 <td>{stakePerComb}</td>
-                <td className={totOdds ? 'w' : 'l'}>{displayNumber(winnings)}</td>
+                <td className={totOdds ? 'w' : 'l'} data-testid={`comb-${index}`}>{displayNumber(winnings)}</td>
             </React.Fragment>
         )
 
@@ -33,7 +33,7 @@ const Combinations = ({ combinations }) => {
 
     return (
         <div className='container'>
-            <div >Max possible winnings: {displayNumber(test)}</div>
+            <div data-testid="max-win">Max possible winnings: {displayNumber(test)}</div>
             <table className='combination-table'>
                 <thead>
                     <tr className="header-row">
@@ -46,7 +46,7 @@ const Combinations = ({ combinations }) => {
                 </thead>
                 <tbody>{
                     data.map((eventsArray, index) => (
-                        <tr key={`comb-${index}`}>
+                        <tr key={`comb-${index}`} >
                             <td>{index + 1}</td>
                             {
                                 eventsArray.map((event, eventIndex) => (
@@ -56,7 +56,7 @@ const Combinations = ({ combinations }) => {
                                     </td>
                                 ))
                             }
-                            {displayOdds(eventsArray)}
+                            {displayFields(eventsArray, index)}
                         </tr>
 
                     ))

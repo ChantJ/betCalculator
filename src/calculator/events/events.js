@@ -70,7 +70,7 @@ const EventsContainer = ({ handleCompute }) => {
                             </td>
                             <td className="td" style={{ textAlign: 'center' }}>
                                 <input
-                                    data-testid="oddInput"
+                                    data-testid={`oddInput-${eventIndex}`}
                                     type="text"
                                     value={event.odds}
                                     onChange={(e) => handleChange(eventIndex, e.target.value, 'odds')}
